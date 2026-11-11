@@ -2,28 +2,31 @@
 
 ## Purpose
 
-`trysac-repo-templates-gen` is a small, dependency-free Python library: Generate GitHub issue forms, the issue chooser config and a pull request template from one JSON config, with schema checks and byte-exact YAML
+`repo-templates-gen` is a Python package that generates GitHub issue forms, the issue chooser config and a pull request template from one JSON config, with schema checks and byte-exact YAML.
 
 ## Shape
 
 ```text
-caller code --> repo_templates_gen (public API in __init__.py)
-                    |
-                    +-- pure functions, no I/O, no global state
+caller code or CLI
+    |
+    +-- repo_templates_gen.__init__ (public API)
+    |       load_config -> TemplateConfig
+    |       render_issue_form / render_pr_template / render_all -> str / dict[str, str]
+    |       write_all -> files under a root Path
+    |
+    +-- repo_templates_gen.__main__ (argparse CLI)
 ```
 
-- **Public API**: the names listed in `__all__` of `src/repo_templates_gen/__init__.py`. Anything else is
-  internal and may change without a major version.
-- **Errors**: invalid input raises built-in exceptions (`ValueError`, `TypeError`) with a clear
-  message; the library never prints or exits.
-- **Side effects**: none. If a feature needs I/O, isolate it in its own module behind a small
-  interface and record the choice in an ADR.
+- Public API: names in `__all__` of `src/repo_templates_gen/__init__.py`.
+- Configuration model: frozen dataclasses `Field`, `IssueForm`, `ContactLink` and `TemplateConfig` validate their own invariants in `__post_init__`.
+- Errors: validation and file-existence failures raise `TemplateError` with a stable `code`; `Field` also raises `ValueError` for an unknown field type.
+- Side effects: `write_all` creates parent directories and writes UTF-8 files with LF line endings; the rest of the public API is pure string processing.
+- Logging: the module logger uses a `NullHandler` and emits no messages.
 
 ## Quality contract
 
-`scripts/check.py` is the single definition of the gates; `fabrica.json` tells the factory and CI
-how to run it. See [TESTING.md](TESTING.md).
+The supplied source tree contains no `scripts/check.py`, coverage configuration or CI workflow file. The executable contract is the public API and the pytest module `tests/test_repo_templates_gen.py`.
 
 ## Decisions
 
-Architecture decisions are recorded in [decisions/](decisions/) as numbered ADRs.
+No ADR directory is included in the supplied source tree.

@@ -4,20 +4,14 @@
 
 | Tool | Why |
 |---|---|
-| Python >= 3.10 | Widest supported range that still allows modern typing syntax. |
-| uv | Fast, reproducible environments and builds on Windows and Linux. |
-| hatchling | Simple, standards-based build backend; no setup.py. |
-| ruff | Lint and format in one fast tool. |
-| mypy (strict) | Catches type errors before release; the package ships `py.typed`. |
-| pytest + pytest-cov | De facto standard test runner with branch coverage. |
-| gitleaks | Secret scanning locally and in CI. |
-| GitHub Actions + Dependabot | Thin CI wrapper over the local gates; weekly dependency updates. |
+| Python >= 3.10 | Code uses `from __future__ import annotations`, `list[str] | None` and `tuple[str, ...]`. |
+| Python standard library | `json`, `logging`, `re`, `dataclasses`, `pathlib`, `argparse`, `collections.abc` and `typing` cover config parsing, validation, rendering and the CLI; no runtime dependencies. |
+| pytest | The test module uses `pytest.raises`. |
+| PyYAML >=6,<7 | Development-only oracle for checking that rendered issue forms load as YAML. |
 
 ## Discarded
 
 | Tool | Why not |
 |---|---|
-| Poetry | Slower, and uv covers the same needs with standard dependency groups. |
-| black + isort + flake8 | Replaced by ruff: one tool instead of three. |
-| tox / nox | The OS matrix lives in CI; locally a single `scripts/check.py` is enough. |
-| Shell scripts for gates | Not portable to Windows; the gates are a stdlib Python script. |
+| PyYAML as a runtime dependency | Rendering uses `json.dumps` for YAML-compatible double-quoted scalars; PyYAML is only a test oracle. |
+| Template repository copying | Replaced by one validated JSON source and deterministic rendering. |
