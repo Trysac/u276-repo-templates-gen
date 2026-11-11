@@ -19,6 +19,9 @@ classifiers = [
 ]
 dependencies = []
 
+[project.scripts]
+repo-templates-gen = "repo_templates_gen.__main__:main"
+
 [project.urls]
 Homepage = "https://github.com/Trysac/u276-repo-templates-gen"
 Source = "https://github.com/Trysac/u276-repo-templates-gen"
@@ -43,7 +46,9 @@ dev = [
     "pip-audit>=2.10.1",
     "pytest>=9.2.0",
     "pytest-cov>=7.1.0",
+    "pyyaml>=6,<7",
     "ruff>=0.17.3",
+    "types-pyyaml>=6.0.12.20261111",
 ]
 
 [tool.ruff]

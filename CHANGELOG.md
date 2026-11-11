@@ -9,4 +9,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Added `repo_templates_gen` library and CLI to generate GitHub issue forms, config.yml, and pull request template from a validated JSON configuration.
 - Initial project structure from the factory utility template.
