@@ -1,7 +1,6 @@
 # repo-templates-gen
 
-[![PyPI version](https://img.shields.io/pypi/v/trysac-repo-templates-gen)](https://pypi.org/project/trysac-repo-templates-gen/)
-[![License: MIT](https://img.shields.io/pypi/l/trysac-repo-templates-gen)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/Trysac/u276-repo-templates-gen/actions/workflows/ci.yml/badge.svg)](https://github.com/Trysac/u276-repo-templates-gen/actions/workflows/ci.yml)
 
 Generate GitHub issue forms, the issue chooser config and a pull request template from one JSON config, with schema checks and byte-exact YAML
@@ -12,8 +11,10 @@ Maintainers copy issue templates between repositories by hand and break them: an
 
 ## Install
 
+Not published to PyPI yet. Install it from GitHub:
+
 ```sh
-pip install trysac-repo-templates-gen
+pip install "git+https://github.com/Trysac/u276-repo-templates-gen"
 ```
 
 Requires Python 3.10 or newer. The package has no runtime dependencies; PyYAML is used only by the test suite to check rendered YAML.
